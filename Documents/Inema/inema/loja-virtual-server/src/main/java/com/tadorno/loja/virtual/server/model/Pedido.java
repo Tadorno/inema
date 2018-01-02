@@ -57,10 +57,6 @@ public class Pedido extends ObjetoComId implements Serializable {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
     
-    @NotNull(message = "Campo Sexo é obrigatório.")
-    @Column(name = "quantidade")
-    private int quantidade;
-    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "data")
     private Date data;
@@ -90,14 +86,6 @@ public class Pedido extends ObjetoComId implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Endereco getEndereco() {
