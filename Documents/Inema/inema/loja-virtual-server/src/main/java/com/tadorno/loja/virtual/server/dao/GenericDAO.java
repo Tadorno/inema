@@ -16,6 +16,8 @@ import javax.persistence.TypedQuery;
  * @author tulio
  * @param <T>
  * @param <ID>
+ * 
+ * Abstração genérica do repositório das entidades
  */
 public abstract class GenericDAO<T, ID extends Serializable> {
 

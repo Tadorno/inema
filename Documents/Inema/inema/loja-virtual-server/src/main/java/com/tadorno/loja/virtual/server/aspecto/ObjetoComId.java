@@ -11,6 +11,8 @@ import java.util.Objects;
  *
  * @author tulio
  * @param <T>
+ * 
+ * Interface para utilização futuras como validadores, filtros, conversores e etc
  */
 public abstract class ObjetoComId<T> {
    

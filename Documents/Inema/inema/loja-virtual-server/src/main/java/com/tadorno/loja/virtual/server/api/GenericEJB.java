@@ -12,6 +12,9 @@ import java.util.Map;
 /**
  *
  * @author tulio
+ * 
+ * Interface Genérica para a API
+ * @param <T>
  */
 public interface GenericEJB<T> {
     

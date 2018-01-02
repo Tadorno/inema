@@ -15,6 +15,9 @@ import javax.persistence.EntityManager;
 /**
  *
  * @author tulio
+ * @param <T>
+ * 
+ * Abstração Genérica do Bean com métodos comuns
  */
 public abstract class GenericBean<T> implements GenericEJB<T> {
     
