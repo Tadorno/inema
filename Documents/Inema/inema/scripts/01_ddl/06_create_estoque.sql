@@ -38,3 +38,6 @@ CREATE INDEX fki_fk_estoque_produto
     ON loja_virtual.estoque USING btree
     (id_produto)
     TABLESPACE pg_default;
+
+	
+ALTER TABLE loja_virtual.estoque DROP COLUMN nome;
