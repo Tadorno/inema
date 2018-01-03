@@ -15,36 +15,38 @@
 #### Estrutura
 
  1. loja-virtual <-Front da aplicação  
-    - src
-     - main
+  - src
+    - main
       - java
-       - com
-        - tadorno
-         - loja
-          - virtual <- ManagedBeans de Formulários
-           - lazy <- Estrutura responsável pala paginação das listas
-        - resource
-         - webapp
-          - paginas <- páginas da aplicação  
+        - com
+          - tadorno
+            - loja
+              - virtual <- ManagedBeans de Formulários
+                - lazy <- Estrutura responsável pala paginação das listas
+      - resource
+        - webapp
+          - paginas <- páginas da aplicação  
           - partial <- Template e Menu
           - resources <- Css, imagens e javascripts
 
+
+
   
-  loja-virtual-server <- Back da aplicação
-    src
-      main
-        java
-          com
-            tadorno
-              loja
-                virtual
-                  server
-                    api <- Interfaces EJB para utilização CDI 
-                    aspecto <- Interfaces e abstrações de aspectos comuns aos objetos
-                    bean <- Beans da aplicação
-                    dao <- Repository dos dados
-                    exception <- Classes de exceção
-                    model <- Entidades dos dados 
+  2. loja-virtual-server <- Back da aplicação
+    - src
+      - main
+        - java
+          - com
+            - tadorno
+              - loja
+                - virtual
+                  - server
+                    - api <- Interfaces EJB para utilização CDI 
+                    - aspecto <- Interfaces e abstrações de aspectos comuns aos objetos
+                    - bean <- Beans da aplicação
+                    - dao <- Repository dos dados
+                    - exception <- Classes de exceção
+                     - model <- Entidades dos dados 
 
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
