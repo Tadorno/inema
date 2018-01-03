@@ -13,8 +13,8 @@
   10. Primefaces 5.0
   
 #### Estrutura
-`
-  loja-virtual <-Front da aplicação  
+
+  `loja-virtual <-Front da aplicação  
     src
       main
         java
@@ -45,9 +45,8 @@
                     bean <- Beans da aplicação
                     dao <- Repository dos dados
                     exception <- Classes de exceção
-                    model <- Entidades dos dados
-                    
-` 
+                    model <- Entidades dos dados`
+
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
   Para isso basta seguir os passos do link utilizado como referência: 
