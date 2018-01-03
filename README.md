@@ -29,9 +29,7 @@
           - partial <- Template e Menu
           - resources <- Css, imagens e javascripts
 
-
-
-  
+    
   2. loja-virtual-server <- Back da aplicação
     - src
       - main
@@ -50,6 +48,7 @@
 
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
+  
   [Para isso basta seguir os passos do link utilizado como referência.](https://bgasparotto.com/pt/adicionar-datasource-ao-wildfly/) 
   
   
