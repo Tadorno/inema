@@ -1,18 +1,18 @@
 # inema
 
 # Tecnologias
-  Java 8
-  NetBeans 8.1
-  Wildfly 10.1
-  driver postgresql 42.1.4.jre7
-  PostgreSQL 10.1
-  PgAdmin 4
-  Hibernate 4.3.1.Final
-  EJB 3.1
-  JSF 2.2
-  Primefaces 5.0
+  1. Java 8
+  2. NetBeans 8.1
+  3. Wildfly 10.1
+  4. driver postgresql 42.1.4.jre7
+  5. PostgreSQL 10.1
+  6. PgAdmin 4
+  7. Hibernate 4.3.1.Final
+  8. EJB 3.1
+  9. JSF 2.2
+  10. Primefaces 5.0
   
-# Estrutura
+#### Estrutura
   loja-virtual <-Front da aplicação  
     src
       main
@@ -45,7 +45,7 @@
                     dao <- Repository dos dados
                     exception <- Classes de exceção
                     model <- Entidades dos dados
-
+  
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
   Para isso basta seguir os passos do link utilizado como referência: 
