@@ -14,7 +14,7 @@
   
 #### Estrutura
 
-  `loja-virtual <-Front da aplicação  
+  ```loja-virtual <-Front da aplicação  
     src
       main
         java
@@ -28,8 +28,7 @@
           paginas <- páginas da aplicação  
           partial <- Template e Menu
           resources <- Css, imagens e javascripts
-  
-  -------------
+
   
   loja-virtual-server <- Back da aplicação
     src
@@ -45,7 +44,7 @@
                     bean <- Beans da aplicação
                     dao <- Repository dos dados
                     exception <- Classes de exceção
-                    model <- Entidades dos dados`
+                    model <- Entidades dos dados```
 
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
