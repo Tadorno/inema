@@ -21,7 +21,7 @@ public class ParametrosMB {
     private final String PARTIAL = ROOT_PATH + "partial/";
     private final String RODAPE = "Todos os direitos"; 
     private final String VERSAO = "Versão: 1.0";
-
+        
     public String getAPLICATION() {
         return APLICATION;
     }

@@ -47,10 +47,6 @@ public class Cliente extends ObjetoComId implements Serializable {
     @Column(name = "cpf")
     private String cpf;
     
-    @NotNull(message = "Campo Sexo é obrigatório.")
-    @Column(name = "sexo")
-    private char sexo;
-    
     @NotNull(message = "Campo Endereço é obrigatório.")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_endereco")
@@ -80,14 +76,6 @@ public class Cliente extends ObjetoComId implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public char getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
     }
 
     public Endereco getEndereco() {
