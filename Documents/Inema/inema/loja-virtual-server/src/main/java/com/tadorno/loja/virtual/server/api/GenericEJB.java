@@ -20,7 +20,7 @@ public interface GenericEJB<T> {
     
     T find(Long id) throws ErroPersistenciaException;
     
-    void salvar(T produto )throws ErroPersistenciaException;
+    void salvar(T entidade )throws ErroPersistenciaException;
     
     void delete(T entidade) throws ErroPersistenciaException; 
     

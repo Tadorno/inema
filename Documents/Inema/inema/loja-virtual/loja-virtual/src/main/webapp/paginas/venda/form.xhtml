@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/partial/template.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:growl id="retorno" showDetail="false"/>
+                <div class="col-lg-12" align="center">
+                    <p:panelGrid style="width: 800px;">
+                        <f:facet name="header" >
+                            <p:row >
+                                <p:column colspan="4">
+                                    Dados do Cliente
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+
+                        <p:row>
+                            <p:column style="width: 250px">
+                                <h:outputLabel for="cpf">CPF*</h:outputLabel>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:inputText id="cpf" maxlength="14" value="#{pedidoMB.cpfBusca}">
+                                    <p:ajax update="form" listener="#{pedidoMB.selectFromCpf()}" event="blur"/>
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        
+                        <h:inputHidden value="#{pedidoMB.cliente.id}"></h:inputHidden>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel >Nome:</h:outputLabel>
+                            </p:column>
+                            <p:column colspan="3">
+                                <h:outputLabel value="#{pedidoMB.cliente.nome}"></h:outputLabel>
+                            </p:column>
+                        </p:row>
+ 
+                        <p:row >
+                            <p:column colspan="4" styleClass="ui-widget-header">
+                                Dados do Endereço
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="meu_endereco">Utilizar Endereço do Cliente?</h:outputLabel>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:selectOneRadio id="meu_endereco" value="#{pedidoMB.meuEndereco}">
+                                    <p:ajax update="form" event="change"/>
+                                    <f:selectItem itemLabel="Sim" itemValue="true"/>
+                                    <f:selectItem itemLabel="Não" itemValue="false" />
+                                </p:selectOneRadio>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="logradouro">Logradouro:</h:outputLabel>
+                            </p:column>
+                            <p:column colspan="3" rendered="#{pedidoMB.meuEndereco}">
+                                <h:outputLabel >#{pedidoMB.cliente.endereco.logradouro}</h:outputLabel>
+                            </p:column>
+                            <p:column colspan="3" rendered="#{!pedidoMB.meuEndereco}">
+                                <p:inputText id="logradouro" maxlength="100" value="#{pedidoMB.pedido.endereco.logradouro}"></p:inputText>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="bairro">Bairro</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{pedidoMB.meuEndereco}">
+                                <h:outputLabel >#{pedidoMB.cliente.endereco.bairro}</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
+                                <p:inputText id="bairro" maxlength="50" value="#{pedidoMB.pedido.endereco.bairro}"></p:inputText>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel for="cidade">Cidade</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{pedidoMB.meuEndereco}">
+                                <h:outputLabel >#{pedidoMB.cliente.endereco.cidade}</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
+                                <p:inputText id="cidade" maxlength="50" value="#{pedidoMB.pedido.endereco.cidade}"></p:inputText>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="cep">Cep</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{pedidoMB.meuEndereco}">
+                                <h:outputLabel >#{pedidoMB.cliente.endereco.cep}</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
+                                <p:inputText id="cep" maxlength="9" value="#{pedidoMB.pedido.endereco.cep}"></p:inputText>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel for="numero">Nº</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{pedidoMB.meuEndereco}">
+                                <h:outputLabel >#{pedidoMB.cliente.endereco.numero}</h:outputLabel>
+                            </p:column>
+                            <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
+                                <p:inputText id="numero" maxlength="3" value="#{pedidoMB.pedido.endereco.numero}"></p:inputText>
+                            </p:column>
+                        </p:row>
+                        
+                        <f:facet name="footer">
+                            <p:row >
+                                <p:column colspan="4" style="text-align: right">
+                                    <p:commandButton value="Salvar" update="form" action="#{pedidoMB.salvar()}"/>
+                                </p:column>
+                            </p:row>
+                        </f:facet>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition> 
+</html>
+

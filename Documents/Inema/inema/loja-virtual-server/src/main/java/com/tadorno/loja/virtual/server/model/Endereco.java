@@ -37,15 +37,15 @@ public class Endereco extends ObjetoComId implements Serializable {
     @Column(name = "logradouro")
     private String logradouro;
     
-    @NotNull(message = "Campo CEP é obrigatório.")
+    @NotEmpty(message = "Campo CEP é obrigatório.")
     @Column(name = "cep")
     private String cep;
     
-    @NotNull(message = "Campo Bairro é obrigatório.")
+    @NotEmpty(message = "Campo Bairro é obrigatório.")
     @Column(name = "bairro")
     private String bairro;
     
-    @NotNull(message = "Campo Cidade é obrigatório.")
+    @NotEmpty(message = "Campo Cidade é obrigatório.")
     @Column(name = "cidade")
     private String cidade;
     

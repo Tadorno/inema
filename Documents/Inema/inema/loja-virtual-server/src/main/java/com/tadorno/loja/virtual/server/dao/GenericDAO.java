@@ -58,10 +58,10 @@ public abstract class GenericDAO<T, ID extends Serializable> {
         return query.getResultList();
     }
 
-    public T selectSingle(String sql, EntityManager manager) throws Exception {
-        TypedQuery<T> query =  manager.createQuery(sql, getEntityClass());
+    public Object[] selectSingle(String sql, EntityManager manager) throws Exception {
+        Query query =  manager.createQuery(sql);
         try {
-            return (T) query.getSingleResult();
+            return (Object[]) query.getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }

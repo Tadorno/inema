@@ -6,6 +6,7 @@ package com.tadorno.loja.virtual.server.dao;
 
 import com.tadorno.loja.virtual.server.model.Cliente;
 import java.io.Serializable;
+import javax.persistence.EntityManager;
 
 public class ClienteDAO extends GenericDAO<Cliente, Long> implements Serializable {
 
@@ -22,4 +23,16 @@ public class ClienteDAO extends GenericDAO<Cliente, Long> implements Serializabl
         return Cliente.class;
     }
     
+    public Cliente selectFromCpf(String cpf, EntityManager manager) throws Exception {
+        StringBuilder query = new StringBuilder();
+        query.append("FROM")
+                .append(" Cliente c")
+                .append(" JOIN c.endereco e")
+                .append(" WHERE c.cpf='")
+                .append(cpf)
+                .append("'");
+        
+        Object[] result = super.selectSingle(query.toString(), manager);
+        return (Cliente) result[0];
+    }
 }

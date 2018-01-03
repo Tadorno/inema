@@ -32,7 +32,8 @@ public class Pedido extends ObjetoComId implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public Pedido(){
-        this.produto = new Produto();
+        //this.produto = new Produto();
+        this.endereco = new Endereco();
         this.cliente = new Cliente();
         this.data = new Date();
     }
@@ -42,10 +43,10 @@ public class Pedido extends ObjetoComId implements Serializable {
     @Column(name = "id_pedido")
     private Long id;
     
-    @NotNull(message = "Campo Produto é obrigatório.")
+    /*@NotNull(message = "Campo Produto é obrigatório.")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_produto")
-    private Produto produto;
+    private Produto produto;*/
     
     @NotNull(message = "Campo Cliente é obrigatório.")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,7 +54,7 @@ public class Pedido extends ObjetoComId implements Serializable {
     private Cliente cliente;
     
     @NotNull(message = "Campo Endereço é obrigatório.")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
     
@@ -72,13 +73,13 @@ public class Pedido extends ObjetoComId implements Serializable {
         this.id = id;
     }
 
-    public Produto getProduto() {
+    /*public Produto getProduto() {
         return produto;
     }
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
+    }*/
 
     public Cliente getCliente() {
         return cliente;
