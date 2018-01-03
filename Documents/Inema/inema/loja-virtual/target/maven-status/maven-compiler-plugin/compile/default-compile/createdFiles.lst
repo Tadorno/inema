@@ -1,0 +1,4 @@
+com\tadorno\loja\virtual\lazy\GenericLazy.class
+com\tadorno\loja\virtual\PedidoMB.class
+com\tadorno\loja\virtual\ParametrosMB.class
+com\tadorno\loja\virtual\ControllerTrait.class
