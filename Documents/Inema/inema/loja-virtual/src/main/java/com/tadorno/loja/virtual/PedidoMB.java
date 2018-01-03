@@ -9,7 +9,6 @@ import com.tadorno.loja.virtual.server.api.ClienteEJB;
 import com.tadorno.loja.virtual.server.api.PedidoEJB;
 import com.tadorno.loja.virtual.server.exception.ErroPersistenciaException;
 import com.tadorno.loja.virtual.server.exception.MensagemException;
-import com.tadorno.loja.virtual.server.exception.ResultadoNaoEncontradoException;
 import com.tadorno.loja.virtual.server.model.Cliente;
 import com.tadorno.loja.virtual.server.model.Pedido;
 import java.io.Serializable;
@@ -44,11 +43,11 @@ public class PedidoMB extends ControllerTrait implements Serializable {
         if (!cpfBusca.trim().isEmpty()) {
             try {
                 this.cliente = clienteEJB.selectFromCpf(cpfBusca.trim());
+            } catch (MensagemException ex) {
+                this.addMessage(null, ex.getMessage(), "", this.WARN);
+                cpfBusca = "";
             } catch (ErroPersistenciaException ex) {
                 this.addMessage(null, "Ocorreu um erro em sua requisição.", "", this.DANGER);
-            } catch (ResultadoNaoEncontradoException ex) {
-                this.addMessage(null, ex.getMessage(), "", this.DANGER);
-                cpfBusca = "";
             }
         }
     }

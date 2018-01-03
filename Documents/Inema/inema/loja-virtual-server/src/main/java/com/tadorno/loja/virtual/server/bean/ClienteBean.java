@@ -9,10 +9,12 @@ import com.tadorno.loja.virtual.server.api.ClienteEJB;
 import com.tadorno.loja.virtual.server.dao.ClienteDAO;
 import com.tadorno.loja.virtual.server.dao.GenericDAO;
 import com.tadorno.loja.virtual.server.exception.ErroPersistenciaException;
+import com.tadorno.loja.virtual.server.exception.MensagemException;
 import com.tadorno.loja.virtual.server.exception.ResultadoNaoEncontradoException;
 import com.tadorno.loja.virtual.server.model.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -36,7 +38,7 @@ public class ClienteBean extends GenericBean<Cliente> implements ClienteEJB{
     }
 
     @Override
-    public Cliente selectFromCpf(String cpf)  throws ErroPersistenciaException, ResultadoNaoEncontradoException{
+    public Cliente selectFromCpf(String cpf)  throws ErroPersistenciaException, MensagemException{
         try{
             Cliente cliente = ClienteDAO.getInstance().selectFromCpf(cpf, manager);
             if(cliente == null){
@@ -44,8 +46,8 @@ public class ClienteBean extends GenericBean<Cliente> implements ClienteEJB{
             }
             
             return cliente;
-        }catch(ResultadoNaoEncontradoException rner){
-            throw rner;
+        }catch(NoResultException ex){
+            throw new MensagemException("selectFromCpf", new Exception("Cliente não encontrado"));
         }
         catch(Exception e){
             throw new ErroPersistenciaException("selectFromCpf", e);

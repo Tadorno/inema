@@ -21,9 +21,9 @@
                                 <h:outputLabel for="cpf">CPF*</h:outputLabel>
                             </p:column>
                             <p:column colspan="3">
-                                <p:inputText id="cpf" maxlength="14" value="#{pedidoMB.cpfBusca}">
+                                <p:inputMask id="cpf" maxlength="14" value="#{pedidoMB.cpfBusca}" mask="999.999.999-99">
                                     <p:ajax update="form" listener="#{pedidoMB.selectFromCpf()}" event="blur"/>
-                                </p:inputText>
+                                </p:inputMask>
                             </p:column>
                         </p:row>
                         
@@ -98,7 +98,7 @@
                                 <h:outputLabel >#{pedidoMB.cliente.endereco.cep}</h:outputLabel>
                             </p:column>
                             <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
-                                <p:inputText id="cep" maxlength="9" value="#{pedidoMB.pedido.endereco.cep}"></p:inputText>
+                                <p:inputMask  id="cep" maxlength="9" value="#{pedidoMB.pedido.endereco.cep}" mask="99999-999"></p:inputMask >
                             </p:column>
                             <p:column>
                                 <h:outputLabel for="numero">Nº</h:outputLabel>
@@ -107,7 +107,7 @@
                                 <h:outputLabel >#{pedidoMB.cliente.endereco.numero}</h:outputLabel>
                             </p:column>
                             <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
-                                <p:inputText id="numero" maxlength="3" value="#{pedidoMB.pedido.endereco.numero}"></p:inputText>
+                                <p:inputMask id="numero" maxlength="3" value="#{pedidoMB.pedido.endereco.numero}" mask="99?9?"></p:inputMask>
                             </p:column>
                         </p:row>
                         

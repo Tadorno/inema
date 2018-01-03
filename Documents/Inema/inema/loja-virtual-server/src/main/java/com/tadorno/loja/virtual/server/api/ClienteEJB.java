@@ -6,7 +6,7 @@
 package com.tadorno.loja.virtual.server.api;
 
 import com.tadorno.loja.virtual.server.exception.ErroPersistenciaException;
-import com.tadorno.loja.virtual.server.exception.ResultadoNaoEncontradoException;
+import com.tadorno.loja.virtual.server.exception.MensagemException;
 import com.tadorno.loja.virtual.server.model.Cliente;
 
 
@@ -16,6 +16,6 @@ import com.tadorno.loja.virtual.server.model.Cliente;
  */
 public interface ClienteEJB extends GenericEJB<Cliente>{
     
-    Cliente selectFromCpf(String cpf) throws ErroPersistenciaException, ResultadoNaoEncontradoException;
+    Cliente selectFromCpf(String cpf) throws ErroPersistenciaException, MensagemException;
     
 }

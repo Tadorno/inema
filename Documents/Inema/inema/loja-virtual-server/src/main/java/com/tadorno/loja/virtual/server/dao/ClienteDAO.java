@@ -7,6 +7,7 @@ package com.tadorno.loja.virtual.server.dao;
 import com.tadorno.loja.virtual.server.model.Cliente;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 public class ClienteDAO extends GenericDAO<Cliente, Long> implements Serializable {
 
@@ -23,7 +24,7 @@ public class ClienteDAO extends GenericDAO<Cliente, Long> implements Serializabl
         return Cliente.class;
     }
     
-    public Cliente selectFromCpf(String cpf, EntityManager manager) throws Exception {
+    public Cliente selectFromCpf(String cpf, EntityManager manager) throws Exception, NoResultException {
         StringBuilder query = new StringBuilder();
         query.append("FROM")
                 .append(" Cliente c")
