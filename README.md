@@ -13,7 +13,8 @@
   10. Primefaces 5.0
   
 #### Estrutura
-  loja-virtual <-Front da aplicação  
+`
+  loja-virtual <-Front da aplicação  
     src
       main
         java
@@ -45,7 +46,8 @@
                     dao <- Repository dos dados
                     exception <- Classes de exceção
                     model <- Entidades dos dados
-  
+                    
+` 
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
   Para isso basta seguir os passos do link utilizado como referência: 
@@ -55,6 +57,6 @@
   Adicione o server Wildfly na aba Ferramentas > Servidores
 
 # Instalação do projeto loja-virtual
-  Compile o projeto loja-virtual-server para baixar as dependências necessárias e gerar o .war
-  Compile o projeto loja-virtual para baixar as dependências, associar o .war de loja-virtual-server e gerar um novo.war
-  Execute O projeto loja-virtual
+  1. Compile o projeto loja-virtual-server para baixar as dependências necessárias e gerar o .war
+  2. Compile o projeto loja-virtual para baixar as dependências, associar o .war de loja-virtual-server e gerar um novo.war
+  3. Execute O projeto loja-virtual
