@@ -1,4 +1,4 @@
-# inema
+# Loja-Virtual
 
 # Tecnologias
   1. Java 8
@@ -14,20 +14,20 @@
   
 #### Estrutura
 
-  ` loja-virtual <-Front da aplicação  
-    src
-      main
-        java
-          com
-            tadorno
-              loja
-               virtual <- ManagedBeans de Formulários
-                lazy <- Estrutura responsável pala paginação das listas
-        resource
-        webapp
-          paginas <- páginas da aplicação  
-          partial <- Template e Menu
-          resources <- Css, imagens e javascripts
+ 1. loja-virtual <-Front da aplicação  
+    - src
+     - main
+      - java
+       - com
+        - tadorno
+         - loja
+          - virtual <- ManagedBeans de Formulários
+           - lazy <- Estrutura responsável pala paginação das listas
+        - resource
+         - webapp
+          - paginas <- páginas da aplicação  
+          - partial <- Template e Menu
+          - resources <- Css, imagens e javascripts
 
   
   loja-virtual-server <- Back da aplicação
@@ -44,12 +44,12 @@
                     bean <- Beans da aplicação
                     dao <- Repository dos dados
                     exception <- Classes de exceção
-                    model <- Entidades dos dados `
+                    model <- Entidades dos dados 
 
 # Configuração Wildfly
   Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
-  Para isso basta seguir os passos do link utilizado como referência: 
-  https://bgasparotto.com/pt/adicionar-datasource-ao-wildfly/
+  [Para isso basta seguir os passos do link utilizado como referência.](https://bgasparotto.com/pt/adicionar-datasource-ao-wildfly/) 
+  
   
 # Configuração Netbeans
   Adicione o server Wildfly na aba Ferramentas > Servidores
