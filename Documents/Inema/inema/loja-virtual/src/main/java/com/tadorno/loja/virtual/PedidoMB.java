@@ -81,6 +81,9 @@ public class PedidoMB extends ControllerTrait implements Serializable {
                 pedidoEJB.salvar(pedido, meuEndereco);
                 cliente = new Cliente();
                 pedido = new Pedido();
+                meuEndereco = false;
+                cpfBusca = "";
+                produtos = null; //Apenas para atualizar o estoque na combo. O ideal é criar uma lógica mais elaborada
                 this.addMessage(null, "Pedido Realizado com Sucesso.", "", this.SUCCESS);
             } catch (MensagemException ex) {
                 this.addMessage(null, ex.getMessage(), "", this.WARN);
