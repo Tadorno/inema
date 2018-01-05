@@ -26,7 +26,7 @@
                                 </p:inputMask>
                             </p:column>
                         </p:row>
-                        
+
                         <h:inputHidden value="#{pedidoMB.cliente.id}"></h:inputHidden>
 
                         <p:row>
@@ -37,13 +37,13 @@
                                 <h:outputLabel value="#{pedidoMB.cliente.nome}"></h:outputLabel>
                             </p:column>
                         </p:row>
- 
+
                         <p:row >
                             <p:column colspan="4" styleClass="ui-widget-header">
                                 Dados do Endereço
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel for="meu_endereco">Utilizar Endereço do Cliente?</h:outputLabel>
@@ -56,7 +56,7 @@
                                 </p:selectOneRadio>
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel for="logradouro">Logradouro:</h:outputLabel>
@@ -68,7 +68,7 @@
                                 <p:inputText id="logradouro" maxlength="100" value="#{pedidoMB.pedido.endereco.logradouro}"></p:inputText>
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel for="bairro">Bairro</h:outputLabel>
@@ -89,7 +89,7 @@
                                 <p:inputText id="cidade" maxlength="50" value="#{pedidoMB.pedido.endereco.cidade}"></p:inputText>
                             </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <h:outputLabel for="cep">Cep</h:outputLabel>
@@ -107,14 +107,94 @@
                                 <h:outputLabel >#{pedidoMB.cliente.endereco.numero}</h:outputLabel>
                             </p:column>
                             <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
-                                <p:inputMask id="numero" maxlength="3" value="#{pedidoMB.pedido.endereco.numero}" mask="99?9?"></p:inputMask>
+                                <p:inputMask id="numero"  value="#{pedidoMB.pedido.endereco.numero}" mask="999"></p:inputMask>
+                            </p:column>
+                        </p:row>
+
+                        <p:row >
+                            <p:column colspan="4" styleClass="ui-widget-header">
+                                Produtos
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="produto">Produto / Quantidade</h:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <p:column>
+                                    <p:selectOneMenu id="produto" value="#{pedidoMB.item.produto.id}" required="true" requiredMessage="Campo Produto é Obrigatório.">
+                                        <f:selectItem itemLabel="Selecione um Produto..." itemValue="" />
+                                        <f:selectItems value="#{pedidoMB.produtos}" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel for="quantidade">Quantidade</h:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <p:inputMask id="quantidade" maxlength="3" mask="9" value="#{pedidoMB.item.quantidade}"></p:inputMask>
+                            </p:column>
+                        </p:row>
+
+                        <p:row >
+                            <p:column colspan="4" style="text-align: right" styleClass="ui-widget-header">
+                                <p:commandButton value="Adicionar Produto" update="form" action="#{pedidoMB.adicionarProduto()}" process="@this,quantidade,produto"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row >
+                            <p:column colspan="4">
+                                <h:outputLabel>Produtos Adicionados</h:outputLabel>
+                            </p:column>
+                        </p:row>
+
+                        <p:row id="tabela_pedido">
+                            <p:column colspan="4">
+                                <h:dataTable var="i" value="#{pedidoMB.pedido.itens}" 
+                                             styleClass="order-table"
+                                             headerClass="order-table-header"
+                                             rowClasses="order-table-odd-row,order-table-even-row">
+
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Produto</f:facet>
+                                        <!-- row record -->
+                                        <h:outputLabel>#{i.produto.nome}</h:outputLabel>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Unit. R$</f:facet>
+                                        <h:outputLabel>#{i.produto.preco}</h:outputLabel>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Quantidade</f:facet>
+                                        <h:outputLabel>#{i.quantidade}</h:outputLabel>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Ações</f:facet>
+                                        Remover
+                                    </h:column>
+
+                                </h:dataTable>
+
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <h:outputLabel >Total R$:</h:outputLabel>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel >#{pedidoMB.pedido.getValorTotal()}</h:outputLabel>
                             </p:column>
                         </p:row>
                         
                         <f:facet name="footer">
                             <p:row >
                                 <p:column colspan="4" style="text-align: right">
-                                    <p:commandButton value="Salvar" update="form" action="#{pedidoMB.salvar()}"/>
+                                    <p:commandButton value="Salvar" update="form" action="#{pedidoMB.salvar()}" process="@this,meu_endereco,logradouro,cidade,cep,numero,bairro"/>
                                 </p:column>
                             </p:row>
                         </f:facet>

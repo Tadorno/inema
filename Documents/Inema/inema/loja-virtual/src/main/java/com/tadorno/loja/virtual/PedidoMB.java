@@ -6,15 +6,23 @@
 package com.tadorno.loja.virtual;
 
 import com.tadorno.loja.virtual.server.api.ClienteEJB;
+import com.tadorno.loja.virtual.server.api.EstoqueEJB;
 import com.tadorno.loja.virtual.server.api.PedidoEJB;
 import com.tadorno.loja.virtual.server.exception.ErroPersistenciaException;
 import com.tadorno.loja.virtual.server.exception.MensagemException;
 import com.tadorno.loja.virtual.server.model.Cliente;
+import com.tadorno.loja.virtual.server.model.Estoque;
+import com.tadorno.loja.virtual.server.model.ItemPedido;
 import com.tadorno.loja.virtual.server.model.Pedido;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -28,15 +36,25 @@ public class PedidoMB extends ControllerTrait implements Serializable {
 
     private Pedido pedido = new Pedido();
 
+    private ItemPedido item = new ItemPedido(pedido);
+
     private String cpfBusca;
 
     private boolean meuEndereco = false;
+
+    private List<SelectItem> produtos;
+
+    //Mapa de produto por ID para evitar ir ao banco quando realizar o bind do itemProduto
+    private Map<Long, Estoque> mapEstoque = new HashMap();
 
     @EJB
     private ClienteEJB clienteEJB;
 
     @EJB
     private PedidoEJB pedidoEJB;
+
+    @EJB
+    private EstoqueEJB estoqueEJB;
 
     public void selectFromCpf() {
         cliente = new Cliente();
@@ -53,19 +71,53 @@ public class PedidoMB extends ControllerTrait implements Serializable {
     }
 
     public String salvar() {
-        pedido.setCliente(cliente);
+        if (pedido.getItens().isEmpty()) {
+            this.addMessage(null, "Insira ao menos um Produto.", "", this.DANGER);
+        } else {
 
-        try {
-            pedidoEJB.salvar(pedido, meuEndereco);
-            cliente = new Cliente();
-            pedido = new Pedido();
-            this.addMessage(null, "Pedido Realizado com Sucesso.", "", this.SUCCESS);
-        } catch (MensagemException ex) {
-            this.addMessage(null, ex.getMessage(), "", this.WARN);
-        } catch (ErroPersistenciaException ex) {
-            this.addMessage(null, "Ocorreu um erro em sua requisição.", "", this.DANGER);
+            pedido.setCliente(cliente);
+
+            try {
+                pedidoEJB.salvar(pedido, meuEndereco);
+                cliente = new Cliente();
+                pedido = new Pedido();
+                this.addMessage(null, "Pedido Realizado com Sucesso.", "", this.SUCCESS);
+            } catch (MensagemException ex) {
+                this.addMessage(null, ex.getMessage(), "", this.WARN);
+            } catch (ErroPersistenciaException ex) {
+                this.addMessage(null, "Ocorreu um erro em sua requisição.", "", this.DANGER);
+            }
         }
         return null;
+    }
+
+    public void adicionarProduto() {
+        item.setProduto(mapEstoque.get(item.getProduto().getId()).getProduto());
+
+        if (item.getQuantidade() == 0) {
+            this.addMessage(null, "Deve ser inserido uma quantidade maior que 0.", "", this.DANGER);
+        } else if (validarLimiteSuperado()) {
+            int quantidadeMax = mapEstoque.get(item.getProduto().getId()).getQuantidade();
+            this.addMessage(null, "Quantidade do produto " + item.getProduto().getNome() + " é superior a " + quantidadeMax + " unidades", "", this.DANGER);
+        } else {
+            item.setProduto(mapEstoque.get(item.getProduto().getId()).getProduto());
+
+            pedido.adicionarItemPedido(item);
+            item = new ItemPedido(pedido);
+        }
+    }
+
+    private boolean validarLimiteSuperado() {
+        int quantidadeMax = mapEstoque.get(item.getProduto().getId()).getQuantidade();
+        int quantidadeAdicionada = item.getQuantidade();
+
+        for (ItemPedido itemAux : pedido.getItens()) {
+            if (itemAux.getProduto().equals(item.getProduto())) {
+                quantidadeAdicionada += itemAux.getQuantidade();
+            }
+        }
+
+        return quantidadeAdicionada > quantidadeMax;
     }
 
     public Cliente getCliente() {
@@ -100,4 +152,27 @@ public class PedidoMB extends ControllerTrait implements Serializable {
         this.pedido = pedido;
     }
 
+    public ItemPedido getItem() {
+        return item;
+    }
+
+    public void setItem(ItemPedido item) {
+        this.item = item;
+    }
+
+    public List<SelectItem> getProdutos() {
+        if (produtos == null) {
+            produtos = new ArrayList<>();
+            try {
+                List<Estoque> estoques = estoqueEJB.select(0, 9999, "produto.nome", "ASC", new HashMap<String, Object>());
+                for (Estoque model : estoques) {
+                    mapEstoque.put(model.getProduto().getId(), model);
+                    produtos.add(new SelectItem(model.getProduto().getId(), model.getProduto().getNome() + " / " + model.getQuantidade()));
+                }
+            } catch (ErroPersistenciaException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return produtos;
+    }
 }

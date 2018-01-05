@@ -16,26 +16,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author tulio
  */
 @Entity
-@Table(name = "estoque")
-public class Estoque extends ObjetoComId implements Serializable {
+@Table(name = "item_pedido")
+public class ItemPedido extends ObjetoComId implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    public Estoque(){}
+    public ItemPedido(){
+        this.pedido = new Pedido();
+        this.produto = new Produto();
+    }
 
+    public ItemPedido(Pedido pedido){
+        this.pedido = pedido;
+        this.produto = new Produto();
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_estoque")
+    @Column(name = "id_item_pedido")
     private Long id;
-     
-    @NotNull(message = "Campo Produto é obrigatório.")
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pedido")
+    private Pedido pedido;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_produto")
     private Produto produto;
@@ -51,6 +61,14 @@ public class Estoque extends ObjetoComId implements Serializable {
     @Override
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public Produto getProduto() {
@@ -69,4 +87,7 @@ public class Estoque extends ObjetoComId implements Serializable {
         this.quantidade = quantidade;
     }
 
+    public void addQuantidade(int quantidade){
+        this.quantidade += quantidade;
+    }
 }
