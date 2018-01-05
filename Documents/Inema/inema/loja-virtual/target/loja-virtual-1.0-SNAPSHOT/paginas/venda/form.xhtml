@@ -107,7 +107,7 @@
                                 <h:outputLabel >#{pedidoMB.cliente.endereco.numero}</h:outputLabel>
                             </p:column>
                             <p:column style="width: 200px" rendered="#{!pedidoMB.meuEndereco}">
-                                <p:inputMask id="numero"  value="#{pedidoMB.pedido.endereco.numero}" mask="999"></p:inputMask>
+                                <p:inputText id="numero"  value="#{pedidoMB.pedido.endereco.numero}" styleClass="positive-integer" maxlength="3"></p:inputText>
                             </p:column>
                         </p:row>
 
@@ -133,7 +133,7 @@
                                 <h:outputLabel for="quantidade">Quantidade</h:outputLabel>
                             </p:column>
                             <p:column >
-                                <p:inputMask id="quantidade" maxlength="3" mask="9" value="#{pedidoMB.item.quantidade}"></p:inputMask>
+                                <p:inputText id="quantidade" value="#{pedidoMB.item.quantidade}" styleClass="positive-integer" maxlength="3"></p:inputText>
                             </p:column>
                         </p:row>
 
