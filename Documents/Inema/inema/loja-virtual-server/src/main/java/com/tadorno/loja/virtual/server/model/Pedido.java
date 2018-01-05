@@ -6,6 +6,7 @@
 package com.tadorno.loja.virtual.server.model;
 
 import com.tadorno.loja.virtual.server.aspecto.ObjetoComId;
+import com.tadorno.loja.virtual.server.exception.MensagemException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,7 +118,17 @@ public class Pedido extends ObjetoComId implements Serializable {
         return valor;
     }
     
-    public void adicionarItemPedido(ItemPedido item){
+    public void adicionarItemPedido(Estoque estoque, ItemPedido item) throws MensagemException{
+        if(item.getProduto().getId() == null){
+            throw new MensagemException("adicionarItemPedido", new Exception("Campo Produto é obrigatório."));
+        }
+        
+        if(item.getQuantidade()==0){
+            throw new MensagemException("adicionarItemPedido", new Exception("Deve ser inserido uma quantidade maior que 0."));
+        }
+        
+        this.validarLimiteSuperado(estoque, item);
+        
         boolean existeProduto = false;
 
         for (ItemPedido itemAux : this.itens) {
@@ -130,6 +141,26 @@ public class Pedido extends ObjetoComId implements Serializable {
 
         if (!existeProduto) {
             itens.add(item);
+        }
+
+    }
+    
+    /**
+     * Valida se o limite do estoque será superado com o novo itemPedido
+     * @return 
+     */
+    private void validarLimiteSuperado(Estoque estoque, ItemPedido item) throws MensagemException {
+        int quantidadeMax = estoque.getQuantidade();
+        int quantidadeTotal = item.getQuantidade();
+
+        for (ItemPedido itemAux : this.getItens()) {
+            if (itemAux.getProduto().equals(item.getProduto())) {
+                quantidadeTotal += itemAux.getQuantidade();
+            }
+        }
+
+        if(quantidadeTotal > quantidadeMax){
+            throw new MensagemException("validarLimiteSuperado", new Exception("Quantidade do produto " + item.getProduto().getNome() + " é superior a " + quantidadeMax + " unidades"));
         }
 
     }

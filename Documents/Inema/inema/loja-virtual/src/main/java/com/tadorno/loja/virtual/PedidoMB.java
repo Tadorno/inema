@@ -96,31 +96,13 @@ public class PedidoMB extends ControllerTrait implements Serializable {
 
     public void adicionarProduto() {
         item.setProduto(mapEstoque.get(item.getProduto().getId()).getProduto());
-
-        if (item.getQuantidade() == 0) {
-            this.addMessage(null, "Deve ser inserido uma quantidade maior que 0.", "", this.DANGER);
-        } else if (validarLimiteSuperado()) {
-            int quantidadeMax = mapEstoque.get(item.getProduto().getId()).getQuantidade();
-            this.addMessage(null, "Quantidade do produto " + item.getProduto().getNome() + " é superior a " + quantidadeMax + " unidades", "", this.DANGER);
-        } else {
-            item.setProduto(mapEstoque.get(item.getProduto().getId()).getProduto());
-
-            pedido.adicionarItemPedido(item);
+        
+        try{
+            pedido.adicionarItemPedido(mapEstoque.get(item.getProduto().getId()), item);
             item = new ItemPedido(pedido);
+        }catch(MensagemException me){
+            this.addMessage(null, me.getMessage(), "", this.WARN);
         }
-    }
-
-    private boolean validarLimiteSuperado() {
-        int quantidadeMax = mapEstoque.get(item.getProduto().getId()).getQuantidade();
-        int quantidadeAdicionada = item.getQuantidade();
-
-        for (ItemPedido itemAux : pedido.getItens()) {
-            if (itemAux.getProduto().equals(item.getProduto())) {
-                quantidadeAdicionada += itemAux.getQuantidade();
-            }
-        }
-
-        return quantidadeAdicionada > quantidadeMax;
     }
 
     public Cliente getCliente() {
