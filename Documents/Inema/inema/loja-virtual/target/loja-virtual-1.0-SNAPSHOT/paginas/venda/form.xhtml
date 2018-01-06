@@ -187,7 +187,9 @@
                                 <h:outputLabel >Total R$:</h:outputLabel>
                             </p:column>
                             <p:column>
-                                <h:outputLabel >#{pedidoMB.pedido.getValorTotal()}</h:outputLabel>
+                                <h:outputLabel value="#{pedidoMB.pedido.getValorTotal()}" >
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputLabel>
                             </p:column>
                         </p:row>
                         

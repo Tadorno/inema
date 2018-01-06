@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <div class="col-lg-12" align="center">
+        <p:panelGrid style="width: 800px;">
+            <f:facet name="header" >
+                <p:row >
+                    <p:column colspan="4">
+                        Dados do Cliente
+                    </p:column>
+                </p:row>
+            </f:facet>
+
+            <p:row>
+                <p:column style="width: 250px">
+                    <h:outputLabel for="cpf">CPF*</h:outputLabel>
+                </p:column>
+                <p:column colspan="3">
+                    <h:outputText value="#{pedidoListMB.pedido.cliente.cpf}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <h:outputLabel >Nome:</h:outputLabel>
+                </p:column>
+                <p:column colspan="3">
+                    <h:outputText value="#{pedidoListMB.pedido.cliente.nome}"></h:outputText>
+                </p:column>
+            </p:row>
+
+            <p:row >
+                <p:column colspan="4" styleClass="ui-widget-header">
+                    Dados do Endereço
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="logradouro">Logradouro:</h:outputLabel>
+                </p:column>
+                <p:column colspan="3">
+                    <h:outputText id="logradouro" value="#{pedidoListMB.pedido.endereco.logradouro}"></h:outputText>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="bairro">Bairro</h:outputLabel>
+                </p:column>
+                <p:column style="width: 200px">
+                    <h:outputText id="bairro" value="#{pedidoListMB.pedido.endereco.bairro}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <h:outputLabel for="cidade">Cidade</h:outputLabel>
+                </p:column>
+                <p:column style="width: 200px">
+                    <h:outputText id="cidade" value="#{pedidoListMB.pedido.endereco.cidade}"></h:outputText>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <h:outputLabel for="cep">Cep</h:outputLabel>
+                </p:column>
+                <p:column style="width: 200px">
+                    <h:outputText  id="cep" value="#{pedidoListMB.pedido.endereco.cep}"></h:outputText >
+                </p:column>
+                <p:column>
+                    <h:outputLabel for="numero">Nº</h:outputLabel>
+                </p:column>
+                <p:column style="width: 200px">
+                    <h:outputText id="numero"  value="#{pedidoListMB.pedido.endereco.numero}" styleClass="positive-integer"></h:outputText>
+                </p:column>
+            </p:row>
+
+            <p:row >
+                <p:column colspan="4" styleClass="ui-widget-header">
+                    Produtos
+                </p:column>
+            </p:row>
+
+            <p:row >
+                <p:column colspan="4">
+                    <h:outputLabel>Produtos Adicionados</h:outputLabel>
+                </p:column>
+            </p:row>
+
+            <p:row id="tabela_pedido">
+                <p:column colspan="4">
+                    <h:dataTable var="i" value="#{pedidoListMB.pedido.itens}" 
+                                 styleClass="order-table"
+                                 headerClass="order-table-header"
+                                 rowClasses="order-table-odd-row,order-table-even-row">
+
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">Produto</f:facet>
+                            <!-- row record -->
+                            <h:outputLabel>#{i.produto.nome}</h:outputLabel>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Unit. R$</f:facet>
+                            <h:outputLabel>#{i.produto.preco}</h:outputLabel>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Quantidade</f:facet>
+                            <h:outputLabel>#{i.quantidade}</h:outputLabel>
+                        </h:column>
+
+                    </h:dataTable>
+
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="3">
+                    <h:outputLabel >Total R$:</h:outputLabel>
+                </p:column>
+                <p:column>
+                    <h:outputLabel value="#{pedidoListMB.pedido.getValorTotal()}" >
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputLabel>
+                </p:column>
+            </p:row>
+
+        </p:panelGrid>
+    </div>
+</ui:composition> 
+
+

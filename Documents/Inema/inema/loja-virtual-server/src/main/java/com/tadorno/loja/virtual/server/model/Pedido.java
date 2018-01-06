@@ -47,16 +47,16 @@ public class Pedido extends ObjetoComId implements Serializable {
     @Column(name = "id_pedido")
     private Long id;
 
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<ItemPedido> itens;
 
     @NotNull(message = "Campo Cliente é obrigatório.")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
     @NotNull(message = "Campo Endereço é obrigatório.")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
