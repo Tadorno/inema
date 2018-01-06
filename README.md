@@ -47,7 +47,7 @@
                      - model <- Entidades dos dados 
 
 # Configuração Wildfly
-  Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar um datasource.
+  Para configurar o Wildfly é necessário instalar o driver postgreSQL (Ou qualquer outro banco a sua escolha) e configurar o datasource InemaDS (esse datasource é fundamental para o funcionamento do persistence.xml).
   
   [Para isso basta seguir os passos do link utilizado como referência.](https://bgasparotto.com/pt/adicionar-datasource-ao-wildfly/) 
   
