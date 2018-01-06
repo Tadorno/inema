@@ -96,12 +96,24 @@ public class PedidoMB extends ControllerTrait implements Serializable {
 
     public void adicionarProduto() {
         item.setProduto(mapEstoque.get(item.getProduto().getId()).getProduto());
-        
-        try{
+
+        try {
             pedido.adicionarItemPedido(mapEstoque.get(item.getProduto().getId()), item);
             item = new ItemPedido(pedido);
-        }catch(MensagemException me){
+        } catch (MensagemException me) {
             this.addMessage(null, me.getMessage(), "", this.WARN);
+        }
+    }
+
+    public void removerItemPedido(ItemPedido item) {
+        //TODO: Reavaliar equals para remoção de objetos pelo método remove do ArrayList
+        //pedido.getItens().remove(item);
+        for (int i = 0; i < pedido.getItens().size(); i++) {
+            ItemPedido  itemAux = pedido.getItens().get(i);
+            if (itemAux.getProduto().equals(item.getProduto())) {
+                pedido.getItens().remove(i);
+                break;
+            }
         }
     }
 

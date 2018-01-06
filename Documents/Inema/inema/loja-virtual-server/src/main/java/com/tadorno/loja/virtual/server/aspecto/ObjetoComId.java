@@ -22,6 +22,7 @@ public abstract class ObjetoComId<T> {
     
    @Override
    public boolean equals(Object object){
+        
         //Se o objeto a ser testado for nulo retorna false
         if(object == null || this.getId() == null){
             return false;
