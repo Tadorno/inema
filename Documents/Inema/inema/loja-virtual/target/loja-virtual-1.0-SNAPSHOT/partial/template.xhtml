@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <f:view contentType="text/html">
         <h:head>
@@ -41,6 +42,11 @@ and open the template in the editor.
                     <div class="col-md-12">
                         <!-- YOUR DATA GOES HERE -->
                         <ui:insert id="content" name="content" />
+                        <p:dialog modal="true" widgetVar="statusDialog"  header="Carregando..." 
+                                  draggable="false" closable="false" resizable="false">  
+                            <div align="center"><p:graphicImage value="/resources/images/load.gif"  /></div>
+                        </p:dialog> 
+                        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
                     </div>
                 </div>
             </div>
